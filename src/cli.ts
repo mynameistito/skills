@@ -472,7 +472,7 @@ async function runCheck(args: string[] = []): Promise<void> {
   console.log();
 }
 
-async function runUpdate(args: string[] = []): Promise<void> {
+async function runUpdate(): Promise<void> {
   console.log(`${TEXT}Checking for skill updates...${RESET}`);
   console.log();
 
@@ -567,9 +567,7 @@ async function runUpdate(args: string[] = []): Promise<void> {
       );
       continue;
     }
-    const isGlobal = args.includes('-g') || args.includes('--global');
-    const spawnArgs = [cliEntry, 'add', installUrl, '-y'];
-    if (isGlobal) spawnArgs.push('-g');
+    const spawnArgs = [cliEntry, 'add', installUrl, '-y', '-g'];
     const result = spawnSync(process.execPath, spawnArgs, {
       stdio: ['inherit', 'pipe', 'pipe'],
       encoding: 'utf-8',
@@ -672,7 +670,7 @@ async function main(): Promise<void> {
       break;
     case 'update':
     case 'upgrade':
-      runUpdate(restArgs);
+      runUpdate();
       break;
     case '--help':
     case '-h':
