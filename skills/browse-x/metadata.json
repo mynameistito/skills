@@ -1,0 +1,9 @@
+{
+  "name": "browse-x",
+  "description": "Read public X content locally through Bun as Markdown or JSON.",
+  "author": "mynameistito",
+  "original": "pc-style/x-md browse-x skill",
+  "originalUrl": "https://github.com/pc-style/x-md",
+  "version": "1.0.0",
+  "license": "MIT"
+}

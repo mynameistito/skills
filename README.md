@@ -10,6 +10,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 |-------|---------|
 | `index-knowledge` | Generate hierarchical `AGENTS.md` knowledge bases for codebases. |
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
+| `browse-x` | Read public X content as compact or full Markdown or JSON; adapted from `pc-style/x-md`. |
 
 ## Installation
 
@@ -26,12 +27,14 @@ Install a specific skill:
 ```bash
 npx skills add mynameistito/skills/index-knowledge
 npx skills add mynameistito/skills/humanise
+npx skills add mynameistito/skills/browse-x
 ```
 
 Install globally:
 
 ```bash
 npx skills add mynameistito/skills/humanise -g
+npx skills add mynameistito/skills/browse-x -g
 ```
 
 Target a specific agent:
@@ -80,6 +83,10 @@ skills/
     │   ├── agents/openai.yaml
     │   ├── metadata.json
     │   └── references/signs-of-ai-writing.md
+    ├── browse-x/
+    │   ├── SKILL.md
+    │   ├── metadata.json
+    │   └── scripts/browse-x.ts
     └── index-knowledge/
         ├── SKILL.md
         ├── README.md
