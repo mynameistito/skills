@@ -10,6 +10,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 |-------|---------|
 | `index-knowledge` | Generate hierarchical `AGENTS.md` knowledge bases for codebases. |
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
+| `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
 
 ## Installation
 
@@ -26,6 +27,7 @@ Install a specific skill:
 ```bash
 npx skills add mynameistito/skills/index-knowledge
 npx skills add mynameistito/skills/humanise
+npx skills add mynameistito/skills/x-lookup
 ```
 
 Install globally:
@@ -39,6 +41,7 @@ Target a specific agent:
 ```bash
 npx skills add mynameistito/skills/humanise -a codex
 npx skills add mynameistito/skills/index-knowledge -a claude-code
+npx skills add mynameistito/skills/x-lookup -a codex
 ```
 
 ### Manual Installation
@@ -68,6 +71,12 @@ Reviews user-provided drafts for AI-sounding writing patterns, using Wikipedia's
 
 See `skills/humanise/SKILL.md` for the workflow and `skills/humanise/references/signs-of-ai-writing.md` for the compact reference.
 
+### `x-lookup`
+
+Reads public X statuses, conversations, profiles, search results, followers, and following through the hosted, read-only `x-lookup.mynameistito.com` API. It does not require an X login, cookies, API key, or local repository checkout. Markdown is the default response format; request JSON when structured content, pagination cursors, warnings, or provider details are needed.
+
+See `skills/x-lookup/SKILL.md` for endpoint examples and limits.
+
 ## Repository Layout
 
 ```text
@@ -83,6 +92,10 @@ skills/
     └── index-knowledge/
         ├── SKILL.md
         ├── README.md
+        └── metadata.json
+    ├── x-lookup/
+        ├── SKILL.md
+        ├── agents/openai.yaml
         └── metadata.json
 ```
 

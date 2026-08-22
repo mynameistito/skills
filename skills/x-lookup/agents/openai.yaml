@@ -1,0 +1,4 @@
+interface:
+  display_name: "X Lookup"
+  short_description: "Read public X content without login"
+  default_prompt: "Use $x-lookup to retrieve the relevant public X status, profile, search, follower, or following data."

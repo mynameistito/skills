@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "August 2026",
+  "abstract": "Reads public X/Twitter statuses, conversations, profiles, search results, followers, and following through the hosted x-lookup API as compact or full Markdown or JSON.",
+  "references": [
+    "https://x-lookup.mynameistito.com",
+    "https://github.com/mynameistito/x-lookup/blob/main/skills/x-lookup/scripts/x-lookup.ts"
+  ]
+}
