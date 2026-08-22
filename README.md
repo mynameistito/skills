@@ -8,6 +8,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 
 | Skill | Purpose |
 |-------|---------|
+| `chatgpt-sandbox` | Execute and validate real shell/CLI commands in ChatGPT's sandbox and diagnose environment or network limitations precisely. |
 | `index-knowledge` | Generate hierarchical `AGENTS.md` knowledge bases for codebases. |
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
@@ -25,6 +26,7 @@ npx skills add mynameistito/skills --list
 Install a specific skill:
 
 ```bash
+npx skills add mynameistito/skills/chatgpt-sandbox
 npx skills add mynameistito/skills/index-knowledge
 npx skills add mynameistito/skills/humanise
 npx skills add mynameistito/skills/x-lookup
@@ -33,6 +35,7 @@ npx skills add mynameistito/skills/x-lookup
 Install globally:
 
 ```bash
+npx skills add mynameistito/skills/chatgpt-sandbox -g
 npx skills add mynameistito/skills/humanise -g
 ```
 
@@ -56,6 +59,18 @@ Copy the desired skill folder into your agent's skills directory:
 | Cursor | `./.cursor/skills/` | `~/.cursor/skills/` |
 
 ## Skill Notes
+
+### `chatgpt-sandbox`
+
+Makes the ChatGPT execution sandbox useful as a real working environment instead of treating shell commands as examples only. It probes installed tools, runs requested Bash/Git/curl/npm/npx/Node/Python commands, captures observed results, diagnoses DNS and package-resolution failures, and falls back to connected GitHub tooling when direct sandbox GitHub access is blocked.
+
+It also documents safe non-interactive package execution such as:
+
+```bash
+npx -y create-cf-token --skill
+```
+
+See `skills/chatgpt-sandbox/SKILL.md` for the full workflow.
 
 ### `index-knowledge`
 
@@ -84,6 +99,10 @@ skills/
 ├── LICENSE
 ├── README.md
 └── skills/
+    ├── chatgpt-sandbox/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── metadata.json
     ├── humanise/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
