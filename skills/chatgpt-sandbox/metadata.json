@@ -1,7 +1,0 @@
-{
-  "version": "1.0.0",
-  "organization": "mynameistito",
-  "date": "August 2026",
-  "abstract": "Makes ChatGPT use its execution sandbox as a real working environment: probing available tools, running shell and CLI commands, validating results, diagnosing DNS and package-resolution failures, and falling back to connected GitHub tooling when direct network access is unavailable.",
-  "references": []
-}

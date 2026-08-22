@@ -1,4 +1,0 @@
-interface:
-  display_name: "ChatGPT Sandbox"
-  short_description: "Execute and diagnose commands in ChatGPT's sandbox"
-  default_prompt: "Use $chatgpt-sandbox to run this in the ChatGPT sandbox, verify what actually happens, and diagnose any environment or network limitation precisely."
