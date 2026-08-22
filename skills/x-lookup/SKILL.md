@@ -6,12 +6,25 @@ metadata:
   author: mynameistito
   version: "1.0.0"
 allowed-tools:
+  - Bash(bun skills/x-lookup/scripts/x-lookup.ts *)
   - Bash(curl *x-lookup.mynameistito.com*)
 ---
 
 # Use x-lookup.mynameistito.com
 
 Use the hosted, read-only API. It needs no repository checkout, install, X login, cookies, or API key. Only public X content is available.
+
+The `curl` examples below are the portable default for this catalog. When working from a checkout of [mynameistito/x-lookup](https://github.com/mynameistito/x-lookup), the repository also provides `skills/x-lookup/scripts/x-lookup.ts` as a typed Bun wrapper around the same API:
+
+```bash
+bun skills/x-lookup/scripts/x-lookup.ts \
+  "https://x.com/handle/status/1234567890"
+
+bun skills/x-lookup/scripts/x-lookup.ts search \
+  "from:handle release" --feed latest
+```
+
+Use the wrapper's `--help` for its full CLI options. Do not assume this catalog contains the wrapper itself; use the hosted API when that checkout is unavailable.
 
 ## Read statuses and conversations
 
