@@ -1,0 +1,4 @@
+interface:
+  display_name: "Faster GitHub CLI"
+  short_description: "Use gh reliably for GitHub workflows"
+  default_prompt: "Use $faster-gh-cli-skill to complete this GitHub CLI task safely and efficiently."

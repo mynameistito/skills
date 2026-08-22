@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "August 2026",
+  "abstract": "Guides reliable GitHub CLI workflows for repositories, pull requests, issues, Actions, API requests, secrets, and gists, with portable multiline-body handling and failure diagnosis.",
+  "references": [
+    "https://github.com/zeke/faster-gh-cli-skill",
+    "https://cli.github.com/manual/"
+  ]
+}
