@@ -35,7 +35,7 @@ Prefer public interfaces and real seams. Test implementation details only when t
 
 ### 3. Build the test around behaviour
 
-Keep tests under the repository's `__tests__` directory. Use purpose-based subdirectories only when the suite needs them:
+Follow the repository's configured test layout and established naming conventions first. When the repository has no established layout or naming rule, keep tests under `__tests__` and use purpose-based subdirectories only when the suite needs them:
 
 ```text
 __tests__/
@@ -46,7 +46,7 @@ __tests__/
 └── helpers/
 ```
 
-Name TypeScript test files `*.test.ts` or `*.test.tsx`. Keep fixtures small and purpose-specific. Use factories or builders when many tests need controlled variations of one domain object.
+When no repository-specific naming rule exists, name TypeScript test files `*.test.ts` or `*.test.tsx`. Keep fixtures small and purpose-specific. Use factories or builders when many tests need controlled variations of one domain object.
 
 Cover the success path and the meaningful failure paths. Depending on the behaviour, include invalid input, malformed external data, missing configuration, unavailable dependencies, permission failures, timeout or retry exhaustion, duplicate operations, empty results, partial results, and unexpected but valid boundary values.
 
@@ -92,12 +92,25 @@ Treat flakiness as a defect. Identify the nondeterministic dependency, remove ti
 
 ### 7. Verify and review the result
 
-Run the narrowest relevant test command first, then expand verification according to the change. Prefer existing repository scripts. Typical commands are:
+Run the narrowest relevant test command first, then expand verification according to the change. Prefer existing repository scripts. For Bun test-runner projects, typical commands are:
 
 ```text
 bun test
 bun test __tests__/unit/example.test.ts
+```
+
+For Vitest projects, use the repository script or invoke Vitest directly, optionally with the relevant test path:
+
+```text
 bun run test
+bun run test __tests__/unit/example.test.ts
+bunx vitest run
+bunx vitest run __tests__/unit/example.test.ts
+```
+
+Other typical verification commands are:
+
+```text
 bun run typecheck
 bun run lint
 bun run format
