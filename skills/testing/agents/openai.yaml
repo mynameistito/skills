@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing Standards"
+  short_description: "Write meaningful TypeScript and Effect tests"
+  default_prompt: "Use $testing to add or review tests with deterministic fixtures, honest test seams, and meaningful behavioural coverage."
