@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "September 2026",
+  "abstract": "Testing standards for TypeScript and Effect projects using Bun and Vitest, covering observable behaviour, Effect Layers, Cloudflare boundaries, deterministic fixtures, regressions, and meaningful verification.",
+  "references": []
+}
