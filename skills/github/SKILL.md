@@ -1,6 +1,6 @@
 ---
-name: faster-gh-cli-skill
-description: Use GitHub CLI (`gh`) for pull requests, issues, reviews, Actions runs, repositories, secrets, gists, and API requests. Covers repository targeting, structured output, multiline Markdown, non-interactive workflows, typed API fields, and diagnosis of common GitHub CLI failures.
+name: github
+description: Use GitHub CLI (`gh`) for pull requests, issues, reviews, Actions runs, repositories, secrets, gists, and API requests. Covers repository targeting, structured output, file-based multiline Markdown, non-interactive workflows, typed API fields, and diagnosis of common GitHub CLI failures.
 license: MIT
 compatibility: Requires GitHub CLI, Git, GitHub network access, and an authenticated gh session.
 metadata:
@@ -50,11 +50,12 @@ Common corrections:
 
 ## Send Markdown through files
 
-Use `--body-file` for multiline Markdown in PRs, issues, and comments. Create the file with the environment's file-editing tool, pass it to `gh`, then remove it. This avoids shell interpolation of backticks, variables, and quotes.
+For multiline bodies on issues, pull requests, reviews, and comments, write the content to a temporary `.md` file with the environment's file-editing tool and pass that path to `gh` with `--body-file`. The Markdown file is the source of truth in both PowerShell and POSIX shells, so Markdown stays literal instead of being carried in inline strings or PowerShell here-strings. Remove the temporary file after the command completes.
 
 ```powershell
 gh pr create --repo owner/repo --base main --head branch-name --title "fix: describe the change" --body-file path/to/pr-body.md
 gh issue create --repo owner/repo --title "docs: add homepage" --body-file path/to/issue-body.md
+gh pr review 123 --repo owner/repo --comment --body-file path/to/review.md
 gh pr comment 123 --repo owner/repo --body-file path/to/comment.md
 ```
 

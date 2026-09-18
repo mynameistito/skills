@@ -11,7 +11,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `index-knowledge` | Generate hierarchical `AGENTS.md` knowledge bases for codebases. |
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
-| `faster-gh-cli-skill` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
+| `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
 ## Installation
@@ -30,7 +30,7 @@ Install a specific skill:
 npx skills add mynameistito/skills/index-knowledge
 npx skills add mynameistito/skills/humanise
 npx skills add mynameistito/skills/x-lookup
-npx skills add mynameistito/skills/faster-gh-cli-skill
+npx skills add mynameistito/skills/github
 npx skills add mynameistito/skills/testing
 ```
 
@@ -46,7 +46,7 @@ Target a specific agent:
 npx skills add mynameistito/skills/humanise -a codex
 npx skills add mynameistito/skills/index-knowledge -a claude-code
 npx skills add mynameistito/skills/x-lookup -a codex
-npx skills add mynameistito/skills/faster-gh-cli-skill -a codex
+npx skills add mynameistito/skills/github -a codex
 npx skills add mynameistito/skills/testing -a codex
 ```
 
@@ -83,11 +83,11 @@ Reads public X statuses, conversations, profiles, search results, followers, and
 
 See `skills/x-lookup/SKILL.md` for endpoint examples and limits.
 
-### `faster-gh-cli-skill`
+### `github`
 
 Guides agents through reliable GitHub CLI workflows: establishing repository context, reading structured output, sending Markdown through body files, inspecting branches before creating PRs, handling typed `gh api` fields, and diagnosing permission or request-shape failures. Adapted from [zeke/faster-gh-cli-skill](https://github.com/zeke/faster-gh-cli-skill) with portable PowerShell and POSIX guidance.
 
-See `skills/faster-gh-cli-skill/SKILL.md` for the workflow.
+See `skills/github/SKILL.md` for the workflow.
 
 ### `testing`
 
@@ -102,7 +102,7 @@ skills/
 ├── LICENSE
 ├── README.md
 └── skills/
-    ├── faster-gh-cli-skill/
+    ├── github/
     │   ├── SKILL.md
     │   ├── LICENSE
     │   ├── agents/openai.yaml
