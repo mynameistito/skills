@@ -1,0 +1,4 @@
+interface:
+  display_name: "PowerShell Here-Strings"
+  short_description: "Handle multiline PowerShell text safely"
+  default_prompt: "Use $powershell-here-strings to write, convert, or debug this PowerShell multiline-string task safely."
