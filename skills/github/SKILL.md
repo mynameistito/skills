@@ -48,9 +48,15 @@ Common corrections:
 
 `gh search prs --state merged` is invalid. Use `--merged`; search's `--state` accepts `open` or `closed`.
 
-## Send Markdown through files
+## Send Markdown through temporary files
 
-For multiline bodies on issues, pull requests, reviews, and comments, write the content to a temporary `.md` file with the environment's file-editing tool and pass that path to `gh` with `--body-file`. The Markdown file is the source of truth in both PowerShell and POSIX shells, so Markdown stays literal instead of being carried in inline strings or PowerShell here-strings. Remove the temporary file after the command completes.
+**File first:** For every issue, pull request, review, comment, or edit body, create a temporary `.md` file with the environment's file-editing tool, then invoke `gh` with `--body-file`. Create the file and run `gh` in separate tool calls or commands. The Markdown file is the source of truth in both PowerShell and POSIX shells, so the body stays literal and shell parsing cannot alter it.
+
+1. Create the temporary `.md` file in the approved temp directory with the final Markdown content. The body enters the workflow through the file-editing tool; keep it out of shell variables, PowerShell here-strings, heredocs, and inline `--body` arguments.
+2. Run `gh` in a separate command using `--body-file <temporary-file-path>`. If the command fails and needs a retry, keep or update that file until the workflow is finished.
+3. After the final command result has been captured, remove the temporary file.
+
+The step is complete when `gh` consumed the body through `--body-file` and the temporary file has been removed after the last attempt.
 
 ```powershell
 gh pr create --repo owner/repo --base main --head branch-name --title "fix: describe the change" --body-file path/to/pr-body.md
@@ -59,7 +65,7 @@ gh pr review 123 --repo owner/repo --comment --body-file path/to/review.md
 gh pr comment 123 --repo owner/repo --body-file path/to/comment.md
 ```
 
-Use the same pattern with `gh pr edit`, `gh issue edit`, and `gh issue comment`. A short, plain-text body without shell metacharacters may use `--body` directly.
+Use the same pattern with `gh pr edit`, `gh issue edit`, and `gh issue comment`. Keep using `--body-file` for short bodies too; the file-first rule is the default for every supplied body.
 
 ## Work with pull requests
 
