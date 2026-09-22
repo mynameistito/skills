@@ -12,6 +12,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
+| `powershell-here-strings` | Write and debug PowerShell here-strings and multiline payloads without quoting or interpolation traps. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
 ## Installation
@@ -31,6 +32,7 @@ npx skills add mynameistito/skills/index-knowledge
 npx skills add mynameistito/skills/humanise
 npx skills add mynameistito/skills/x-lookup
 npx skills add mynameistito/skills/github
+npx skills add mynameistito/skills/powershell-here-strings
 npx skills add mynameistito/skills/testing
 ```
 
@@ -47,6 +49,7 @@ npx skills add mynameistito/skills/humanise -a codex
 npx skills add mynameistito/skills/index-knowledge -a claude-code
 npx skills add mynameistito/skills/x-lookup -a codex
 npx skills add mynameistito/skills/github -a codex
+npx skills add mynameistito/skills/powershell-here-strings -a codex
 npx skills add mynameistito/skills/testing -a codex
 ```
 
@@ -89,6 +92,12 @@ Guides agents through reliable GitHub CLI workflows: establishing repository con
 
 See `skills/github/SKILL.md` for the workflow.
 
+### `powershell-here-strings`
+
+Guides agents through PowerShell's multiline here-string syntax, including literal versus expandable forms, parser-safe delimiters, Bash heredoc conversion, nested YAML/shell parsing, safer file/stdin workflows, structured JSON generation, and syntax validation without execution.
+
+See `skills/powershell-here-strings/SKILL.md` for the workflow.
+
 ### `testing`
 
 Guides agents through meaningful TypeScript and Effect testing: choosing unit, integration, or regression coverage; testing typed failures through Effect Layers; selecting honest test doubles; isolating time and state; covering Cloudflare boundaries; and running focused verification.
@@ -115,6 +124,10 @@ skills/
     ├── index-knowledge/
     │   ├── SKILL.md
     │   ├── README.md
+    │   └── metadata.json
+    ├── powershell-here-strings/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
     │   └── metadata.json
     ├── testing/
     │   ├── SKILL.md
