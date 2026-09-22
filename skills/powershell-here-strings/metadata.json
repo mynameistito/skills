@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "September 2026",
+  "abstract": "Guides agents through safe PowerShell here-string usage, Bash heredoc conversion, literal versus expandable multiline text, nested parser boundaries, CLI/file handling, and parser-only validation.",
+  "references": [
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_special_characters"
+  ]
+}
