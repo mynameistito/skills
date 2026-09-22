@@ -157,7 +157,7 @@ $body = @'
 $HOME stays literal
 '@
 
-Set-Content -LiteralPath 'body.md' -Value $body
+Set-Content -LiteralPath 'body.md' -Value $body -Encoding utf8
 ~~~
 
 Bash expandable heredoc:
