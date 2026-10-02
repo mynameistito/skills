@@ -111,13 +111,13 @@ skills/
 ├── LICENSE
 ├── README.md
 └── skills/
+    ├── babysit-pr/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── metadata.json
     ├── github/
     │   ├── SKILL.md
     │   ├── LICENSE
-    │   ├── agents/openai.yaml
-    │   └── metadata.json
-    ├── babysit-pr/
-    │   ├── SKILL.md
     │   ├── agents/openai.yaml
     │   └── metadata.json
     ├── humanise/

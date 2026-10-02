@@ -41,19 +41,19 @@ For CI failures, inspect the failure before acting. Fix repository-owned code or
 
 ### 4. Fix, verify, commit, and push
 
-Implement clear fixes on the PR head branch. Keep fixes focused and create a separate commit for each distinct finding, using a conventional commit message. Run the narrowest relevant tests/checks after each fix and broader applicable checks before pushing. Report any failed or unavailable verification accurately.
+Implement clear fixes on the PR head branch. Keep fixes focused and create a separate commit for each distinct finding, using a conventional commit message. Before running PR-controlled test scripts, inspect what they execute. Run them only in a credential-isolated environment with no GitHub credentials or other secrets; if that isolation is unavailable, ask the user before running them. Run the narrowest relevant tests/checks after each fix and broader applicable checks before pushing. Report any failed or unavailable verification accurately.
 
 Push the commits to the existing PR head branch only after verification. Never change the PR base, force-push, approve the PR, or merge it. If the head branch cannot be safely updated, stop and explain why.
 
-After every push, wait for the resulting applicable CI checks to finish, then refresh the PR's review threads, bot findings, and checks. If new actionable feedback appears or a check fails, return to step 2 and repeat the review/fix/verify/push cycle. Do not treat a pending check as passed or stop while actionable review threads remain unresolved. If a check is stalled, unavailable, or remains failing for an external reason after the allowed retry, report the blocker and ask the user rather than claiming completion.
+After every push, confirm the PR's current head SHA is the commit just pushed, then inspect the applicable CI checks for that head (for example, with `gh pr checks <pr> --repo owner/name --watch` and a bounded command timeout). Do not rely on pre-push local results as proof that remote CI passed. Wait for checks to finish before reporting them; if they remain pending, fail, or are unavailable, report that status and follow the CI triage rules instead of claiming success. Then refresh the PR's review threads, bot findings, and checks. Reply to and resolve threads for findings verified as fixed or non-actionable during this iteration. If new actionable feedback appears or a check fails, return to step 2 and repeat the review/fix/verify/push cycle. Do not stop while actionable review threads remain unresolved. If a check is stalled or remains failing for an external reason after the allowed retry, report the blocker and ask the user rather than claiming completion.
 
-**Complete when:** the latest PR head has all applicable required checks passing and no open actionable review threads remain, or the run is explicitly blocked pending the user's decision.
+**Complete when:** the latest PR head has all applicable required checks passing and no open actionable review threads remain. If blocked pending the user's decision, stop without marking the PR complete.
 
 ### 5. Reply and report
 
 After the outcome is known, reply in each relevant existing review thread when possible. For a finding without a thread (such as a CI check), use a concise PR conversation comment. Explain the concrete change and verification, or the evidence that it was already correct/transient. Do not post a resolution comment for a blocked finding; pause for the user's decision instead.
 
-Once the completion condition in step 4 is met, post one concise PR summary covering commits, passing checks, and any unresolved non-actionable notes. Every GitHub comment this skill posts—including thread replies and the summary—must end with this exact standalone line:
+Only after the success condition in step 4 is met, post one concise PR summary covering commits, passing checks, and any unresolved non-actionable notes. If blocked, skip the PR summary and hand the decision back to the user. Every GitHub comment this skill posts—including thread replies and the summary—must end with this exact standalone line:
 
 ```text
 Commented on behalf of @<verified-github-login>
@@ -63,7 +63,7 @@ Replace `<verified-github-login>` with the login returned for the authenticated 
 
 Create Markdown bodies in a temporary `.md` file and post them with `gh`'s `--body-file`; use the repo's `github` skill for reliable GitHub CLI details. Verify posted replies and the summary are visible. Then give the user a concise chat report with the PR link, changes, checks, and anything awaiting their decision.
 
-**Complete when:** all applicable required checks pass, no open actionable review threads remain, every resolved finding has an accurate reply, the signed summary is visible, and the user has a concise final report. If blocked, hand the decision back clearly without marking the PR complete.
+**Complete when:** all applicable required checks pass, no open actionable review threads remain, every resolved finding has an accurate reply, the signed summary is visible, and the user has a concise final report. If blocked, hand the decision back clearly without posting a completion summary or marking the PR complete.
 
 ## Boundaries
 
