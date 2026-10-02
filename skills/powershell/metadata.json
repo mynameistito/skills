@@ -1,0 +1,16 @@
+{
+  "version": "1.1.0",
+  "organization": "mynameistito",
+  "date": "October 2026",
+  "abstract": "Guides agents through reliable PowerShell scripting, object pipelines, functions, errors, paths, native-command boundaries, side-effect safety, cross-platform differences, and detailed here-string usage including Bash heredoc conversion and parser-only validation.",
+  "references": [
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_special_characters",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_error_handling",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_character_encoding",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute",
+    "https://learn.microsoft.com/en-us/powershell/scripting/security/security-features"
+  ]
+}
