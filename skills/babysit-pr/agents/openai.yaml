@@ -1,0 +1,4 @@
+interface:
+  display_name: "Babysit PR"
+  short_description: "Review and resolve feedback on one named PR"
+  default_prompt: "Use $babysit-pr to review this pull request, fix clear findings, and report back safely."
