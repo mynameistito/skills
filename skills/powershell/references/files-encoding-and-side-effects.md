@@ -8,7 +8,7 @@
 ## Side effects
 
 - `[CmdletBinding(SupportsShouldProcess)]` adds `-WhatIf` and `-Confirm` support to a function, but does not guard effects by itself.
-- Call `$PSCmdlet.ShouldProcess(...)` before each protected state-changing operation.
+- Run each protected state-changing operation only when `$PSCmdlet.ShouldProcess(...)` returns `$true`.
 
 ## Sources
 

@@ -80,7 +80,7 @@ For byte-exact native input/output, account for version boundaries: PowerShell 7
 - Prefer `-LiteralPath` for user-provided paths so wildcard characters are treated literally.
 - Use `Join-Path` to compose paths and `Test-Path` when existence affects the next action; avoid assuming the current working directory.
 - Choose text encoding explicitly when reading or writing files, especially when compatibility with Windows PowerShell 5.1 matters.
-- Make destructive or remote effects visible, scoped, and confirmable. Reusable state-changing functions should declare `[CmdletBinding(SupportsShouldProcess)]` and guard each effect with `$PSCmdlet.ShouldProcess(...)`; adding the attribute alone does not protect the operation.
+- Make destructive or remote effects visible, scoped, and confirmable. Reusable state-changing functions should declare `[CmdletBinding(SupportsShouldProcess)]` and run each effect only when `$PSCmdlet.ShouldProcess(...)` returns `$true`; adding the attribute alone does not protect the operation.
 - Avoid `Invoke-Expression`; call commands directly with explicit arguments instead.
 
 ~~~powershell
