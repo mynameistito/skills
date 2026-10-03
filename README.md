@@ -94,7 +94,7 @@ See `skills/github/SKILL.md` for the workflow.
 
 ### `babysit-pr`
 
-Works on one explicitly named PR and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. It verifies the authenticated GitHub username for each run and uses it in every comment signature; it never approves or merges.
+Works on one explicitly named PR and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. It verifies the authenticated GitHub username for each run and uses it in every comment signature. It merges only when explicitly asked and after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.
 
 See `skills/babysit-pr/SKILL.md` for the workflow.
 
