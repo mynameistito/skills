@@ -11,7 +11,7 @@
 
 - PowerShell parses expressions and command arguments differently. Prefer direct invocation with distinct argument values over constructing a command string, and validate untrusted values for the target program's option syntax.
 - PowerShell 7.3 introduced `$PSNativeCommandArgumentPassing` modes (`Legacy`, `Standard`, and `Windows`). Defaults and compatibility behavior vary by platform and executable; Windows PowerShell 5.1 uses legacy behavior.
-- The backtick introduces PowerShell escape sequences in expandable strings. The `--` end-of-parameters token and Windows-only `--%` stop-parsing token have different purposes; `--%` is a narrow native-command boundary tool, not a general quoting fix.
+- The backtick introduces PowerShell escape sequences in expandable strings. The `--` token only stops parameter parsing for PowerShell commands; native invocations receive it as an argument. The Windows-only `--%` token stops parsing at a native-command boundary and is not a general quoting fix.
 - Each embedding layer (such as YAML, JSON, or another shell) can transform the script before PowerShell parses it. Validate the final PowerShell text, not just its outer representation.
 
 ## Sources
