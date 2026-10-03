@@ -404,17 +404,13 @@ Before returning or committing PowerShell containing a here-string, verify:
 - Using `Invoke-Expression` to compensate for quoting mistakes.
 - Repeatedly changing escapes without identifying which parser layer owns the error.
 
-## Source of truth
+## References
 
-When behavior is uncertain, check Microsoft's versioned PowerShell documentation for the target runtime. These references cover the skill's most version-sensitive areas:
+Use the local notes when a task touches the corresponding behavior. They summarize the relevant rules and link to Microsoft's versioned documentation; check the upstream page for the target runtime when behavior is version-sensitive.
 
-- [about_Quoting_Rules](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_quoting_rules) for here-string and interpolation semantics.
-- [about_Parsing](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_parsing) for argument parsing and native-command boundaries.
-- [about_Pipelines](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_pipelines) for object binding and native byte streams.
-- [about_Error_Handling](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_error_handling) for PowerShell errors and native exit codes.
-- [about_Character_Encoding](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_character_encoding) for text encoding and BOM behavior.
-- [about_Functions_CmdletBindingAttribute](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute) for `SupportsShouldProcess` and `-WhatIf`.
-- [PowerShell security features](https://learn.microsoft.com/powershell/scripting/security/security-features) for execution-policy scope and other security boundaries.
-- [about_Special_Characters](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_special_characters) for escaping and stop-parsing behavior.
+- [Quoting and parser boundaries](references/quoting-and-parser-boundaries.md) for here-strings, interpolation, special characters, and native argument parsing.
+- [Pipelines, errors, and native exit codes](references/pipelines-errors-and-exit-codes.md) for object pipelines, native byte streams, PowerShell errors, and exit codes.
+- [Files, encoding, and side effects](references/files-encoding-and-side-effects.md) for encoding defaults and `SupportsShouldProcess`.
+- [Security features](references/security-features.md) for execution policy and other PowerShell security features.
 
 Do not infer Bash semantics from syntax that merely looks similar.
