@@ -164,7 +164,7 @@ Do not indent the closing marker merely to match the surrounding block. Payload 
 
 ### Literal vs expandable
 
-### Prefer single-quoted here-strings for payloads
+#### Prefer single-quoted here-strings for payloads
 
 `@' ... '@` is verbatim. PowerShell does not expand variables or subexpressions inside it.
 
@@ -181,7 +181,7 @@ Markdown `code` stays literal.
 
 Default to this form for Markdown, JSON fixtures, YAML, source code, shell snippets, regular expressions, and text containing `$`, `$()`, or backticks.
 
-### Use double-quoted here-strings only for intentional expansion
+#### Use double-quoted here-strings only for intentional expansion
 
 `@" ... "@` is expandable. Variables, subexpressions, and PowerShell escape sequences are interpreted.
 
@@ -327,7 +327,7 @@ Do not use `--%` as a general multiline-string solution.
 
 ### Common failure patterns
 
-### "The string is missing the terminator"
+#### "The string is missing the terminator"
 
 Check, in order:
 
@@ -338,19 +338,19 @@ Check, in order:
 5. an earlier quote/backtick did not change parsing;
 6. YAML/shell/template processing did not transform the delimiter.
 
-### Literal text was unexpectedly changed
+#### Literal text was unexpectedly changed
 
 You probably used `@" ... "@` for content that should have been literal. Switch to `@' ... '@`, or move substitutions outside the payload.
 
-### `$schema`, `$env:*`, or `$(...)` disappeared or executed
+#### `$schema`, `$env:*`, or `$(...)` disappeared or executed
 
 The payload was expandable. Use a single-quoted here-string or a structured serializer.
 
-### `<<EOF` fails in pwsh
+#### `<<EOF` fails in pwsh
 
 That is Bash heredoc syntax, not PowerShell here-string syntax. Convert it instead of trying to escape it.
 
-### It works interactively but fails in CI
+#### It works interactively but fails in CI
 
 Inspect the exact script after YAML/template interpolation. CI adds another parser layer and may change environment or line-ending behavior.
 
