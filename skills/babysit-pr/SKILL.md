@@ -43,11 +43,13 @@ For CI failures, inspect the failure before acting. Fix repository-owned code or
 
 Implement clear fixes on the PR head branch. Keep fixes focused and create a separate commit for each distinct finding, using a conventional commit message. Before running PR-controlled test scripts, inspect what they execute. Run them only in a credential-isolated environment with no GitHub credentials or other secrets; if that isolation is unavailable, ask the user before running them. Run the narrowest relevant tests/checks after each fix and broader applicable checks before pushing. Report any failed or unavailable verification accurately.
 
-Push the commits to the existing PR head branch only after verification. Never change the PR base, force-push, approve the PR, or merge it. If the head branch cannot be safely updated, stop and explain why.
+Push the commits to the existing PR head branch only after verification. Never change the PR base, force-push, or approve the PR. If the head branch cannot be safely updated, stop and explain why.
 
 After every push, confirm the PR's current head SHA is the commit just pushed, then inspect the applicable CI checks for that head (for example, with `gh pr checks <pr> --repo owner/name --watch` and a bounded command timeout). Do not rely on pre-push local results as proof that remote CI passed. Wait for checks to finish before reporting them; if they remain pending, fail, or are unavailable, report that status and follow the CI triage rules instead of claiming success. Then refresh the PR's review threads, bot findings, and checks. Reply to and resolve threads for findings verified as fixed or non-actionable during this iteration. If new actionable feedback appears or a check fails, return to step 2 and repeat the review/fix/verify/push cycle. Do not stop while actionable review threads remain unresolved. If a check is stalled or remains failing for an external reason after the allowed retry, report the blocker and ask the user rather than claiming completion.
 
 **Complete when:** the latest PR head has all applicable required checks passing and no open actionable review threads remain. If blocked pending the user's decision, stop without marking the PR complete.
+
+Merge only if the user explicitly asks to merge this named PR. “Babysit,” “handle,” or similar wording alone is not permission. Immediately before merging, confirm the PR is open and mergeable, all applicable required checks have passed, and all actionable review threads are resolved. If any condition fails or is still pending, do not merge; report the blocker and ask the user what to do. Otherwise, merge the PR.
 
 ### 5. Reply and report
 
@@ -69,6 +71,6 @@ Create Markdown bodies in a temporary `.md` file and post them with `gh`'s `--bo
 
 - Operate only on the explicitly named PR and feedback/checks belonging to it.
 - Post comments only as truthful status updates after the outcome is known; append the exact signature to every comment.
-- Never approve, merge, close, or retarget the PR.
+- Never approve, close, retarget, or force-push the PR. Do not merge unless the user explicitly asks to merge the named PR; before merging, require an open and mergeable PR, all applicable required checks passed, and all actionable review threads resolved. If any condition fails or is pending, do not merge; report the blocker and ask the user what to do. Never infer merge permission from “babysit,” “handle,” or similar wording alone.
 - Ask before broad, ambiguous, risky, or intent-changing fixes; never invent a resolution to satisfy a thread.
 - Preserve unrelated changes and report what could not be completed.
