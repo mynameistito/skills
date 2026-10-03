@@ -12,6 +12,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
+| `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
 | `babysit-pr` | Review one named PR, fix clear feedback, verify CI, and reply with signed updates. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
@@ -32,6 +33,7 @@ npx skills add mynameistito/skills/index-knowledge
 npx skills add mynameistito/skills/humanise
 npx skills add mynameistito/skills/x-lookup
 npx skills add mynameistito/skills/github
+npx skills add mynameistito/skills/powershell
 npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
 ```
@@ -49,6 +51,7 @@ npx skills add mynameistito/skills/humanise -a codex
 npx skills add mynameistito/skills/index-knowledge -a claude-code
 npx skills add mynameistito/skills/x-lookup -a codex
 npx skills add mynameistito/skills/github -a codex
+npx skills add mynameistito/skills/powershell -a codex
 npx skills add mynameistito/skills/babysit-pr -a codex
 npx skills add mynameistito/skills/testing -a codex
 ```
@@ -92,6 +95,12 @@ Guides agents through reliable GitHub CLI workflows: establishing repository con
 
 See `skills/github/SKILL.md` for the workflow.
 
+### `powershell`
+
+Guides agents through reliable PowerShell scripting: object pipelines, functions, errors, paths, native-command boundaries, side-effect safety, and cross-platform/version differences. Its detailed here-string reference covers literal versus expandable forms, parser-safe delimiters, Bash heredoc conversion, nested YAML/shell parsing, safer file/stdin workflows, structured JSON generation, and syntax validation without execution.
+
+See `skills/powershell/SKILL.md` for the workflow and here-string reference.
+
 ### `babysit-pr`
 
 Works on one explicitly named PR and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. It verifies the authenticated GitHub username for each run and uses it in every comment signature. It merges only when explicitly asked and after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.
@@ -128,6 +137,10 @@ skills/
     ├── index-knowledge/
     │   ├── SKILL.md
     │   ├── README.md
+    │   └── metadata.json
+    ├── powershell/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
     │   └── metadata.json
     ├── testing/
     │   ├── SKILL.md

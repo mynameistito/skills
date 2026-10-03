@@ -1,0 +1,4 @@
+interface:
+  display_name: "PowerShell"
+  short_description: "Write and debug reliable PowerShell"
+  default_prompt: "Use $powershell to write, review, debug, or test this PowerShell task; apply the here-string guidance when handling multiline text."
