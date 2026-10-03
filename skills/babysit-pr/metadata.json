@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "October 2026",
+  "abstract": "Works on one explicitly named PR, handling review feedback, safe fixes, CI verification, thread replies, and a signed summary. Merges only on explicit request after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.",
+  "references": [
+    "https://cli.github.com/manual/"
+  ]
+}

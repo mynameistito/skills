@@ -13,6 +13,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
+| `babysit-pr` | Review one named PR, fix clear feedback, verify CI, and reply with signed updates. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
 ## Installation
@@ -33,6 +34,7 @@ npx skills add mynameistito/skills/humanise
 npx skills add mynameistito/skills/x-lookup
 npx skills add mynameistito/skills/github
 npx skills add mynameistito/skills/powershell
+npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
 ```
 
@@ -50,6 +52,7 @@ npx skills add mynameistito/skills/index-knowledge -a claude-code
 npx skills add mynameistito/skills/x-lookup -a codex
 npx skills add mynameistito/skills/github -a codex
 npx skills add mynameistito/skills/powershell -a codex
+npx skills add mynameistito/skills/babysit-pr -a codex
 npx skills add mynameistito/skills/testing -a codex
 ```
 
@@ -98,6 +101,12 @@ Guides agents through reliable PowerShell scripting: object pipelines, functions
 
 See `skills/powershell/SKILL.md` for the workflow and here-string reference.
 
+### `babysit-pr`
+
+Works on one explicitly named PR and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. It verifies the authenticated GitHub username for each run and uses it in every comment signature. It merges only when explicitly asked and after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.
+
+See `skills/babysit-pr/SKILL.md` for the workflow.
+
 ### `testing`
 
 Guides agents through meaningful TypeScript and Effect testing: choosing unit, integration, or regression coverage; testing typed failures through Effect Layers; selecting honest test doubles; isolating time and state; covering Cloudflare boundaries; and running focused verification.
@@ -111,6 +120,10 @@ skills/
 ├── LICENSE
 ├── README.md
 └── skills/
+    ├── babysit-pr/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── metadata.json
     ├── github/
     │   ├── SKILL.md
     │   ├── LICENSE
