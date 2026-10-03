@@ -112,7 +112,7 @@ Keep function success output intentional: PowerShell sends uncaptured expression
 
 The rest of this section is the detailed reference for multiline string syntax, payload boundaries, and parser diagnostics.
 
-## Default decision
+### Default decision
 
 Use the representation with the fewest parsing layers:
 
@@ -123,7 +123,7 @@ Use the representation with the fewest parsing layers:
 
 Do not reach for a here-string merely because the input is multiline.
 
-## Non-negotiable syntax rules
+### Non-negotiable syntax rules
 
 A here-string opener is `@'` or `@"`. The opener must be followed by a newline. Do not place payload text after the opener.
 
@@ -162,7 +162,7 @@ This line is content.
 
 Do not indent the closing marker merely to match the surrounding block. Payload indentation is data; leading spaces inside the body are preserved.
 
-## Literal vs expandable
+### Literal vs expandable
 
 ### Prefer single-quoted here-strings for payloads
 
@@ -208,7 +208,7 @@ $body = $template.
     Replace('__COMMIT__', $commitSha)
 ~~~
 
-## Structured data: serialize it
+### Structured data: serialize it
 
 Do not hand-build JSON with an expandable here-string when the content represents data.
 
@@ -222,7 +222,7 @@ $payload = [ordered]@{
 
 Use a literal here-string only for an exact fixture/example that must remain textual.
 
-## Markdown and CLI bodies: prefer files
+### Markdown and CLI bodies: prefer files
 
 If a CLI supports an input/body file, use it. For GitHub CLI:
 
@@ -236,7 +236,7 @@ Create `$bodyPath` with the environment's file-writing tool where possible. If P
 
 Do not place a large Markdown body directly inside an inline `--body "..."` argument when it contains multiple lines, backticks, `$`, or nested quotes.
 
-## Bash heredoc conversion
+### Bash heredoc conversion
 
 Do not paste Bash heredoc syntax into PowerShell.
 
@@ -278,7 +278,7 @@ Hello $env:USERNAME
 
 Do not mechanically translate `$VAR`. Verify whether the PowerShell value is `$name`, `$env:NAME`, or an expression.
 
-## CI and nested parser layers
+### CI and nested parser layers
 
 When PowerShell is embedded in YAML, JSON, another shell, or a command string, reason about every parser layer.
 
@@ -300,7 +300,7 @@ Avoid nesting a here-string inside `pwsh -Command "..."` when a `.ps1` file or d
 
 Never use `Invoke-Expression` merely to compensate for quoting problems.
 
-## Delimiter collisions
+### Delimiter collisions
 
 A payload can contain text that looks like its closing delimiter.
 
@@ -312,7 +312,7 @@ Before choosing a here-string:
 
 Do not randomly escape the payload if the consumer needs exact text.
 
-## Native commands
+### Native commands
 
 A here-string only creates a PowerShell string. It does not solve native-command argument parsing.
 
@@ -325,7 +325,7 @@ Prefer:
 
 Do not use `--%` as a general multiline-string solution.
 
-## Common failure patterns
+### Common failure patterns
 
 ### "The string is missing the terminator"
 
@@ -354,7 +354,7 @@ That is Bash heredoc syntax, not PowerShell here-string syntax. Convert it inste
 
 Inspect the exact script after YAML/template interpolation. CI adds another parser layer and may change environment or line-ending behavior.
 
-## Parse before executing
+### Parse before executing
 
 For generated or modified `.ps1` files, validate syntax without executing the script:
 
@@ -376,7 +376,7 @@ if ($errors.Count -gt 0) {
 
 For an in-memory snippet, use `Parser.ParseInput(...)`.
 
-## Review checklist
+### Review checklist
 
 Before returning or committing PowerShell containing a here-string, verify:
 
