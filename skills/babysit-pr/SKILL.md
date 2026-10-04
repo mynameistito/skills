@@ -63,7 +63,7 @@ Commented on behalf of @<verified-github-login>
 
 Replace `<verified-github-login>` with the login returned for the authenticated user. Do not hard-code a username or infer one from local Git configuration.
 
-Create Markdown bodies in a temporary `.md` file and post them with `gh`'s `--body-file`; use the repo's `github` skill for reliable GitHub CLI details. Verify posted replies and the summary are visible. Then give the user a concise chat report with the PR link, changes, checks, and anything awaiting their decision.
+Create each Markdown body as a uniquely named temporary `.md` file in the system temp directory (for example, `$TEMP`), never in the repository or worktree. Post it with `gh`'s `--body-file`, verify the comment is visible, then delete that file; also clean it up if posting or verification fails. Only remove the temporary file created for that comment. Use the repo's `github` skill for reliable GitHub CLI details. Then give the user a concise chat report with the PR link, changes, checks, and anything awaiting their decision.
 
 **Complete when:** all applicable required checks pass, every fixed or non-actionable feedback thread has one accurate reply and is resolved, the signed summary is visible, and the user has a concise final report. If blocked, hand the decision back clearly without posting a completion summary or marking the PR complete.
 
