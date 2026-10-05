@@ -37,9 +37,9 @@ Consider a nested file when a directory has substantial complexity, a distinct d
 
 ## AGENTS.md Output Format
 
-Root files get the full treatment: `OVERVIEW`, `STRUCTURE`, `WHERE TO LOOK`, `CODE MAP`, `CONVENTIONS`, `ANTI-PATTERNS`, `COMMANDS`, `NOTES`.
+Root files may include, as useful: `OVERVIEW`, `STRUCTURE`, `WHERE TO LOOK`, `CODE MAP`, `CONVENTIONS`, `ANTI-PATTERNS`, `COMMANDS`, and `NOTES`. Include a `CODE MAP` only when it helps locate important entry points or abstractions, and include `ANTI-PATTERNS` only for project-specific rules.
 
-Subdirectory files are leaner: `OVERVIEW`, `WHERE TO LOOK`, `CONVENTIONS`, `ANTI-PATTERNS` — never repeating parent content.
+Subdirectory files are leaner and may include, as useful: `OVERVIEW`, `WHERE TO LOOK`, `CONVENTIONS`, `COMMANDS`, `NOTES`, or project-specific `ANTI-PATTERNS`. Never repeat parent content.
 
 Keep files concise (usually under 150 lines; no minimum). Preserve hand-authored guidance, avoid generic advice, and include only useful, supported details.
 
