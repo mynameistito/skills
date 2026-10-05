@@ -55,9 +55,20 @@ Merge only if the user explicitly asks to merge this named PR. “Babysit,” �
 
 ### 5. Reply and report
 
-After the outcome is known, post exactly one reply in every relevant existing human- or agent-authored feedback thread, including separate threads that report the same underlying issue. Explain the concrete change and verification, or the evidence that the report was already correct/non-actionable; an automated comment claiming a fix is not a substitute for your reply. After replying, resolve each thread whose finding is verified as fixed or non-actionable. For a finding without a thread (such as a CI check), use a concise PR conversation comment. For a blocked finding, do not post a resolution reply or resolve its thread; pause for the user's decision instead.
+After the outcome is known, post exactly one reply in every relevant existing feedback thread from a person, coding agent, or review bot, including separate threads that report the same underlying issue. Apply the same evidence-based reply and resolution rules to actionable bot findings; a PR-level comment does not replace a reply in an existing thread. Write substantive, self-contained replies in the style of https://github.com/pingdotgg/t3code/pull/15008#discussion_r4171637977: start each reply with a GitHub note block identifying it as an AI-agent response on behalf of the verified account, then explain the disposition with enough context for a reviewer to understand it without reconstructing the whole investigation. For a fix, describe the behavior change and verification; for a non-actionable finding, explain the evidence and relevant tradeoffs, and, when an alternative was suggested, why it is not appropriate; for a blocked finding, do not post a resolution reply or resolve its thread, and pause for the user's decision.
 
-After every thread reply has been posted and verified, and only when the success condition in step 4 is met, post one concise PR summary covering commits, passing checks, and any unresolved non-actionable notes. If blocked, skip the PR summary and hand the decision back to the user. Every GitHub comment this skill posts—including thread replies and the summary—must end with this exact standalone line:
+Ground the explanation in the PR: cite relevant files and symbols (and line numbers when useful), preferably as Markdown links to the PR head or commit, and name the specific tests/checks and outcomes. Mention a known limitation or out-of-scope follow-up when it materially affects the disposition. Avoid generic acknowledgements, unsupported claims, and repeating the same boilerplate across duplicate threads; tailor each reply to that thread's concern even when the underlying fix is shared. Keep the detail proportional, but include the reasoning and evidence rather than reducing replies to one-line status updates. For a finding without a thread (such as a CI check), use a concise PR conversation comment with the same note-block attribution and evidence-led style.
+
+Use this opening format for each posted reply or PR comment, replacing the login only with the verified GitHub login:
+
+```markdown
+> [!NOTE]
+> 🤖 **AI agent responding on behalf of @<verified-github-login>**
+```
+
+An automated comment claiming a fix is not a substitute for your reply. After replying, resolve each thread whose finding is verified as fixed or non-actionable.
+
+After every thread reply has been posted and verified, and only when the success condition in step 4 is met, post one concise but informative PR summary covering the commits, what changed, passing checks, and any unresolved non-actionable notes. If blocked, skip the PR summary and hand the decision back to the user. Every GitHub comment this skill posts—including thread replies and the summary—must end with this exact standalone line:
 
 ```text
 Commented on behalf of @<verified-github-login>
