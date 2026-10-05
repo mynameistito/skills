@@ -18,14 +18,16 @@ Draft the body only. Use GitHub CLI for repository and pull-request context; nev
 
 Run these read-only checks:
 
-```powershell
+```sh
 gh auth status
 gh repo view --json nameWithOwner,defaultBranchRef
 git status --short --branch
-gh pr view --json number,title,url,state,headRefName,baseRefName,body,labels 2>$null
+gh pr view --json number,title,url,state,headRefName,baseRefName,body,labels
 ```
 
 Require an authenticated `gh` session. If the current branch has no PR, continue with a local draft and note that no remote PR was found. Use the existing PR base when available; otherwise use the repository default branch.
+
+If `gh pr view` reports that no PR exists for the current branch, continue with a local draft. Treat authentication and network errors as blockers instead of interpreting them as an absent PR.
 
 Inspect the committed branch diff against the base, then inspect staged, unstaged, and untracked files. Include working-tree changes only when they clearly belong to this change and identify them in author notes. Preserve unrelated local work. Stop and report what was inspected when no eligible change set exists.
 
