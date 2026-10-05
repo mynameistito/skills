@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR"
+  short_description: "Write a template-aware, evidence-backed PR body"
+  default_prompt: "Use $pr to draft a review-ready pull request body from the current change, preferring the repository's template."
