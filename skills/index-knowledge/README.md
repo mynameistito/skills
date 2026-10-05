@@ -1,10 +1,10 @@
 # Index Knowledge
 
-Generate a hierarchical AGENTS.md knowledge base for any codebase. Produces concise, machine-readable orientation docs scored by complexity and domain distinctness. Fully OS-agnostic — works on macOS, Linux, WSL, Windows PowerShell, and Windows CMD.
+Generate a concise, hierarchical `AGENTS.md` knowledge map for a codebase. Add nested files only where observed complexity or local conventions justify them. Use the host's available discovery tools; no specific shell is required.
 
 ## Platform Support
 
-This skill uses **agent-native tools** (glob, grep, read) for all structural analysis instead of platform-specific shell commands. No bash or PowerShell required — the same workflow runs identically on every platform.
+Prefer the host's file listing, search, and read tools. Optional tools such as `rg` and LSP can help when available, but are never required. The workflow does not assume a particular shell or operating system.
 
 ## Structure
 
@@ -13,10 +13,10 @@ This skill uses **agent-native tools** (glob, grep, read) for all structural ana
 
 ## What It Does
 
-1. **Discovery** - Scans project structure in parallel using explore agents + agent-native tools (glob, grep, read) + LSP symbols
-2. **Scoring** - Rates each directory by file count, symbol density, module boundaries, and export centrality
-3. **Generation** - Produces root + subdirectory AGENTS.md files, each under 150 lines
-4. **Review** - Deduplicates, trims, and validates output against quality gates
+1. **Inspect** - Understand repository structure, existing guidance, and verified conventions
+2. **Choose** - Create a root map and only justified, non-duplicative nested maps
+3. **Write** - Record concise project-specific orientation and verified commands
+4. **Review** - Check accuracy, preservation, scope, and duplication
 
 ## Usage
 
@@ -24,25 +24,16 @@ This skill uses **agent-native tools** (glob, grep, read) for all structural ana
 # Default: update mode (modify existing + create new where warranted)
 index-knowledge
 
-# Regenerate from scratch
+# Regenerate knowledge while preserving hand-authored guidance
 index-knowledge --create-new
 
 # Limit directory depth
 index-knowledge --max-depth=2
 ```
 
-## Scoring Criteria
+## Choosing locations
 
-| Factor | Weight | High Threshold |
-|--------|--------|----------------|
-| File count | 3x | >20 |
-| Subdir count | 2x | >5 |
-| Code ratio | 2x | >70% |
-| Unique patterns | 1x | Has own config |
-| Module boundary | 2x | Has index.ts/__init__.py |
-| Symbol density | 2x | >30 symbols |
-| Export count | 2x | >10 exports |
-| Reference centrality | 3x | >20 refs |
+Consider a nested file when a directory has substantial complexity, a distinct domain, or local conventions that would not apply repository-wide. Decide from observed structure and useful local guidance, rather than a numeric score. Omit generated, dependency, cache, vendored, and build-output trees.
 
 ## AGENTS.md Output Format
 
@@ -50,7 +41,7 @@ Root files get the full treatment: `OVERVIEW`, `STRUCTURE`, `WHERE TO LOOK`, `CO
 
 Subdirectory files are leaner: `OVERVIEW`, `WHERE TO LOOK`, `CONVENTIONS`, `ANTI-PATTERNS` — never repeating parent content.
 
-All files target 50-150 lines. No generic advice. No obvious info. Telegraphic style.
+Keep files concise (usually under 150 lines; no minimum). Preserve hand-authored guidance, avoid generic advice, and include only useful, supported details.
 
 ## Contributing
 
@@ -58,6 +49,6 @@ When modifying the skill:
 
 1. Edit `SKILL.md` for workflow changes
 2. Update `metadata.json` version for releases
-3. Keep instructions parallel-first (multiple Task calls in one message)
-4. Never add generic content — everything should be project-specific
-5. Use agent-native tools (glob, grep, read) for all structural analysis — do not assume bash or PowerShell availability
+3. Preserve the safe-update behavior and conditional use of optional tools
+4. Keep each instruction actionable and project-specific; avoid fixed quotas or unsupported scoring
+5. Do not assume a particular shell, platform, or agent tool is available
