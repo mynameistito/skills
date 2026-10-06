@@ -11,6 +11,8 @@ metadata:
 
 Generate hierarchical AGENTS.md files — a single root overview plus targeted subdirectory docs scored by complexity and domain distinctness. Every file stays under 150 lines so it fits in an LLM context window without drowning the model in boilerplate.
 
+**Output boundary:** Create and update `AGENTS.md` files only. Leave existing `CLAUDE.md` files untouched; this skill does not create, edit, rename, or delete them.
+
 **This skill is OS-agnostic.** Prefer agent-native tools (`glob`, `grep`, `read`, and equivalent host tools) for structural analysis because they work on macOS, Linux, WSL, Windows PowerShell, and Windows CMD. No platform-specific shell commands are required. If the runtime exposes safe non-shell process execution and `rg` (ripgrep) is installed, `rg` may be used for faster listing/search; never hardcode a shell such as bash, sh, cmd, or PowerShell.
 
 ## Abstract
@@ -57,7 +59,6 @@ Default: Update mode (modify existing + create new where warranted)
 2. **Score & Decide** - Determine AGENTS.md locations from merged findings
 3. **Generate** - Root first, then subdirs in parallel when supported
 4. **Review** - Deduplicate, trim, validate
-5. **CLAUDE.md Bridge** - Create CLAUDE.md alongside every AGENTS.md location
 
 <critical>
 **Track all phases.** Use TodoWrite when available and mark `in_progress` -> `completed` in real time. If TodoWrite is unavailable, keep an internal phase checklist and include phase status in the final report.
@@ -67,8 +68,7 @@ TodoWrite([
   { id: "discovery", content: "Fire explore agents + LSP codemap + read existing", status: "pending", priority: "high" },
   { id: "scoring", content: "Score directories, determine locations", status: "pending", priority: "high" },
   { id: "generate", content: "Generate AGENTS.md files (root + subdirs)", status: "pending", priority: "high" },
-  { id: "review", content: "Deduplicate, validate, trim", status: "pending", priority: "medium" },
-  { id: "claude-md", content: "Create CLAUDE.md bridge files alongside AGENTS.md locations", status: "pending", priority: "medium" }
+  { id: "review", content: "Deduplicate, validate, trim", status: "pending", priority: "medium" }
 ])
 ```
 </critical>
@@ -234,11 +234,10 @@ glob(pattern="**/*.go", path="{{PROJECT_ROOT}}")
 glob(pattern="**/*.rs", path="{{PROJECT_ROOT}}")
 ```
 
-**Existing AGENTS.md / CLAUDE.md:**
+**Existing AGENTS.md:**
 
 ```text
 glob(pattern="**/AGENTS.md", path="{{PROJECT_ROOT}}")
-glob(pattern="**/CLAUDE.md", path="{{PROJECT_ROOT}}")
 ```
 
 <critical>
@@ -262,7 +261,6 @@ If `--create-new`: Read all existing first, preserve useful project-specific con
 - Preserve project-specific conventions, anti-patterns, commands, and gotchas unless analysis proves they are obsolete.
 - Remove stale generated boilerplate, duplicated parent content, and generic advice.
 - If an existing AGENTS.md appears hand-authored and conflicts with generated findings, keep the hand-authored instruction and report the conflict.
-- Never modify unrelated user-authored CLAUDE.md files; Phase 5 only manages exact bridge files.
 
 #### 3. LSP Codemap (if available)
 
@@ -437,53 +435,6 @@ For each generated file:
 
 ---
 
-## Phase 5: Create CLAUDE.md Bridge Files
-
-**Mark "claude-md" as in_progress when phase tracking is available.**
-
-For every directory that received an AGENTS.md, create a companion CLAUDE.md that points to it. This ensures Claude Code and other tools that look for CLAUDE.md will discover the AGENTS.md context.
-
-### Content (identical for all locations)
-
-```markdown
-This project uses AGENTS.md files for AI context. Read AGENTS.md in this directory for relevant instructions and knowledge.
-```
-
-### Implementation
-
-For each entry in `AGENTS_LOCATIONS`, write a CLAUDE.md at the same path. Use `Write` tool for each — all writes can happen in parallel (same message).
-
-### Cleanup orphaned bridge files
-
-After creating CLAUDE.md files, scan for any existing CLAUDE.md files whose content matches the bridge template verbatim but whose directory is NOT in `AGENTS_LOCATIONS`. These are stale bridge files left from a prior run (e.g. after `--create-new` removed an AGENTS.md that no longer clears the scoring threshold). Remove them so tools don't point to an AGENTS.md that no longer exists.
-
-```text
-// For each CLAUDE.md found via glob, read it.
-// If its content matches the bridge template AND its parent dir is NOT in AGENTS_LOCATIONS:
-//   Delete it and log "Removed orphaned CLAUDE.md at {path}"
-// If its content does NOT match the bridge template:
-//   Leave it alone (user-authored, not a bridge file)
-```
-
-**Overwrite guard (deterministic, not judgment-based):** Read existing CLAUDE.md first. Only overwrite if one of the following is true:
-- The file is empty.
-- The file's full content matches the bridge template string verbatim:
-  `This project uses AGENTS.md files for AI context. Read AGENTS.md in this directory for relevant instructions and knowledge.`
-
-If neither condition is met, leave the file untouched and log `"CLAUDE.md already exists — skipped."` This prevents destroying user-authored content.
-
-```text
-// Example: if AGENTS_LOCATIONS = [{ path: "." }, { path: "src/hooks" }, { path: "src/api" }]
-// Then create:
-//   ./CLAUDE.md
-//   ./src/hooks/CLAUDE.md
-//   ./src/api/CLAUDE.md
-```
-
-**Mark "claude-md" as completed when phase tracking is available.**
-
----
-
 ## Final Report
 
 ```text
@@ -493,14 +444,11 @@ Mode: {update | create-new}
 
 Files:
   ✓ ./AGENTS.md (root, {N} lines)
-  ✓ ./CLAUDE.md (bridge)
   ✓ ./src/hooks/AGENTS.md ({N} lines)
-  ✓ ./src/hooks/CLAUDE.md (bridge)
 
 Dirs Analyzed: {N}
 AGENTS.md Created: {N}
 AGENTS.md Updated: {N}
-CLAUDE.md Created: {N}
 
 Hierarchy:
   ./AGENTS.md
