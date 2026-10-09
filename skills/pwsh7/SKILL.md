@@ -50,6 +50,8 @@ Use this skill to diagnose a PowerShell host version mismatch and continue work 
 
    This opens a new PowerShell process. It does not replace the current process or migrate its variables and command history.
 
+   Note: Windows PowerShell 5.1 serializes native arguments with legacy rules, so an argument carrying embedded double quotes or an empty-string argument may not arrive verbatim. Prefer `-File` with simple values on that path; the child exit code is unaffected.
+
 3. **Check the new host.** In the newly opened PowerShell prompt, run:
 
    ```powershell
