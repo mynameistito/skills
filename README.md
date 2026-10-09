@@ -14,7 +14,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `pr` | Draft template-aware, evidence-backed pull request bodies with concise visuals and merge-risk context. |
 | `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
-| `t3pwsh7` | Recover T3 Code from an older Windows PowerShell host by launching the installed PowerShell 7.6+ runtime. |
+| `pwsh7` | Recover any agent session from an outdated Windows PowerShell host by launching the installed PowerShell 7.6+ runtime. |
 | `babysit-pr` | Review one named PR, fix clear feedback, verify CI, and reply with signed updates. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
@@ -37,7 +37,7 @@ npx skills add mynameistito/skills/x-lookup
 npx skills add mynameistito/skills/github
 npx skills add mynameistito/skills/pr
 npx skills add mynameistito/skills/powershell
-npx skills add mynameistito/skills/t3pwsh7
+npx skills add mynameistito/skills/pwsh7
 npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
 ```
@@ -57,7 +57,7 @@ npx skills add mynameistito/skills/x-lookup -a codex
 npx skills add mynameistito/skills/github -a codex
 npx skills add mynameistito/skills/pr -a codex
 npx skills add mynameistito/skills/powershell -a codex
-npx skills add mynameistito/skills/t3pwsh7 -a codex
+npx skills add mynameistito/skills/pwsh7 -a codex
 npx skills add mynameistito/skills/babysit-pr -a codex
 npx skills add mynameistito/skills/testing -a codex
 ```
@@ -113,11 +113,11 @@ Guides agents through reliable PowerShell scripting: object pipelines, functions
 
 See `skills/powershell/SKILL.md` for the workflow and here-string reference.
 
-### `t3pwsh7`
+### `pwsh7`
 
-Checks T3 Code's PowerShell host and, on any version below 7.6, launches the installed Microsoft.PowerShell Appx `pwsh.exe` in a new process. It verifies the new host and explains that work must continue in that session.
+Checks the current PowerShell host and, on any version below 7.6, launches the installed Microsoft.PowerShell Appx `pwsh.exe` in a new process. It verifies the new host and explains that work must continue in that session.
 
-See `skills/t3pwsh7/SKILL.md` for the recovery workflow.
+See `skills/pwsh7/SKILL.md` for the recovery workflow.
 
 ### `babysit-pr`
 
@@ -166,9 +166,11 @@ skills/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
     │   └── metadata.json
-    ├── t3pwsh7/
+    ├── pwsh7/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
+    │   ├── scripts/pwsh7.ps1
+    │   ├── scripts/pwsh7.cmd
     │   └── metadata.json
     ├── testing/
     │   ├── SKILL.md

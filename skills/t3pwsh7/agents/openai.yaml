@@ -1,4 +1,0 @@
-interface:
-  display_name: "T3 PowerShell 7"
-  short_description: "Run T3 Code with PowerShell 7.6 or newer"
-  default_prompt: "Use $t3pwsh7 to check T3 Code's PowerShell host and relaunch with PowerShell 7.6 or newer if needed."
