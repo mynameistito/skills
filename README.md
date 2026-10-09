@@ -169,6 +169,8 @@ skills/
     ├── t3pwsh7/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
+    │   ├── scripts/pwsh7.ps1
+    │   ├── scripts/pwsh7.cmd
     │   └── metadata.json
     ├── testing/
     │   ├── SKILL.md

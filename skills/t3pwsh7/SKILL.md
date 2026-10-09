@@ -22,7 +22,19 @@ Use this skill specifically to recover T3 Code from a Windows PowerShell host ve
 
    Compare the result with the minimum version `7.6`. Continue in the current session only when `$PSVersionTable.PSVersion -ge [version]'7.6'`; otherwise launch the installed PowerShell package in step 2. A PowerShell 7.0–7.5 host does not meet this task's requirement.
 
-2. **Launch the installed PowerShell package when the active version is below 7.6.** Run:
+2. **Launch the installed PowerShell package when the active version is below 7.6.** Run the bundled shim (relative to this skill's base directory), which resolves `pwsh.exe` via PATH, then the newest `Get-AppxPackage -Name Microsoft.PowerShell`, then well-known MSI locations — forwarding all arguments and the child exit code:
+
+   ```powershell
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/pwsh7.ps1 -NoProfile -Command '$PSVersionTable.PSVersion'
+   ```
+
+   Or for an interactive session with no arguments:
+
+   ```powershell
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/pwsh7.ps1
+   ```
+
+   Equivalent legacy inline form (no argument forwarding, no exit-code preservation):
 
    ```powershell
    $package = Get-AppxPackage -Name Microsoft.PowerShell
