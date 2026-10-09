@@ -14,6 +14,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `pr` | Draft template-aware, evidence-backed pull request bodies with concise visuals and merge-risk context. |
 | `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
+| `pwsh-runtime` | Detect Windows PowerShell 5.1 and relaunch the installed PowerShell 7+ runtime. |
 | `babysit-pr` | Review one named PR, fix clear feedback, verify CI, and reply with signed updates. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
@@ -36,6 +37,7 @@ npx skills add mynameistito/skills/x-lookup
 npx skills add mynameistito/skills/github
 npx skills add mynameistito/skills/pr
 npx skills add mynameistito/skills/powershell
+npx skills add mynameistito/skills/pwsh-runtime
 npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
 ```
@@ -55,6 +57,7 @@ npx skills add mynameistito/skills/x-lookup -a codex
 npx skills add mynameistito/skills/github -a codex
 npx skills add mynameistito/skills/pr -a codex
 npx skills add mynameistito/skills/powershell -a codex
+npx skills add mynameistito/skills/pwsh-runtime -a codex
 npx skills add mynameistito/skills/babysit-pr -a codex
 npx skills add mynameistito/skills/testing -a codex
 ```
@@ -110,6 +113,12 @@ Guides agents through reliable PowerShell scripting: object pipelines, functions
 
 See `skills/powershell/SKILL.md` for the workflow and here-string reference.
 
+### `pwsh-runtime`
+
+Checks the current PowerShell host and, on Windows PowerShell 5.1 or another version below 7, launches the installed Microsoft.PowerShell Appx `pwsh.exe` in a new process. It verifies the new host and explains that work must continue in that session.
+
+See `skills/pwsh-runtime/SKILL.md` for the recovery workflow.
+
 ### `babysit-pr`
 
 Works on one explicitly named PR and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. It verifies the authenticated GitHub username for each run and uses it in every comment signature. It merges only when explicitly asked and after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.
@@ -154,6 +163,10 @@ skills/
     │   ├── README.md
     │   └── metadata.json
     ├── powershell/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   └── metadata.json
+    ├── pwsh-runtime/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
     │   └── metadata.json

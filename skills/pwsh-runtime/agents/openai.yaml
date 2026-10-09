@@ -1,0 +1,4 @@
+interface:
+  display_name: "PowerShell Runtime"
+  short_description: "Switch from Windows PowerShell to modern pwsh"
+  default_prompt: "Use $pwsh-runtime to check the active PowerShell version and continue in PowerShell 7 or newer if needed."
