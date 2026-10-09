@@ -3,10 +3,11 @@
 .SYNOPSIS
   Shim to launch Store-installed PowerShell 7 (Microsoft.PowerShell) from Windows PowerShell 5.1.
 .DESCRIPTION
-  Resolves pwsh.exe in order:
+  Resolves the newest suitable pwsh.exe (minimum 7.6) in order:
     1. pwsh.exe already on PATH (App Execution Alias or MSI install)
     2. Newest Get-AppxPackage -Name Microsoft.PowerShell -> <InstallLocation>\pwsh.exe
     3. Well-known MSI / per-user locations
+  Falls back to the newest available runtime with a stderr warning when none meets 7.6.
   Forwards all arguments untouched and preserves the child exit code.
   Declares no parameters: with no param block, every token lands in $args
   verbatim — including names like -Verbose that the binder would otherwise
@@ -24,42 +25,59 @@
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 
-function Find-StorePwsh {
-    # Newest version wins if side-by-side Appx installs exist.
-    $pkg = Get-AppxPackage -Name Microsoft.PowerShell -ErrorAction SilentlyContinue |
-        Sort-Object -Property Version -Descending |
-        Select-Object -First 1
-    if ($null -ne $pkg -and $pkg.InstallLocation) {
-        $candidate = Join-Path $pkg.InstallLocation 'pwsh.exe'
-        if (Test-Path -LiteralPath $candidate) {
-            return $candidate
-        }
-    }
+$MinimumVersion = [version]'7.6'
+
+function Get-PwshVersion {
+    param([string]$Path)
+    try {
+        $out = & $Path -NoProfile -Command '$PSVersionTable.PSVersion.ToString()' 2>$null |
+            Select-Object -First 1
+        if ($out) { return [version]$out }
+    } catch { }
     return $null
 }
 
 function Find-Pwsh {
+    # Candidates in priority order. Each is version-checked: the first
+    # meeting $MinimumVersion wins; otherwise the newest probed runtime is
+    # returned as a last resort (the skill verifies the host in its step 3).
+    $candidates = @()
+
     # 1. Anything already resolvable (App Execution Alias, MSI on PATH, scoop, etc.)
     $cmd = Get-Command pwsh.exe -ErrorAction SilentlyContinue |
         Select-Object -First 1
     if ($null -ne $cmd -and $cmd.Source -and (Test-Path -LiteralPath $cmd.Source)) {
-        return $cmd.Source
+        $candidates += $cmd.Source
     }
 
-    # 2. Store Appx, bypassing PATH.
-    $store = Find-StorePwsh
-    if ($store) { return $store }
+    # 2. Store Appx, bypassing PATH (newest install wins).
+    $pkg = Get-AppxPackage -Name Microsoft.PowerShell -ErrorAction SilentlyContinue |
+        Sort-Object -Property Version -Descending |
+        Select-Object -First 1
+    if ($null -ne $pkg -and $pkg.InstallLocation) {
+        $candidates += Join-Path $pkg.InstallLocation 'pwsh.exe'
+    }
 
-    # 3. Well-known MSI / per-user spots (covers machine without Store alias).
-    $candidates = @(
-        (Join-Path $env:ProgramFiles 'PowerShell\7\pwsh.exe'),
-        (Join-Path ${env:ProgramFiles(x86)} 'PowerShell\7\pwsh.exe'),
-        (Join-Path $env:LOCALAPPDATA 'Microsoft\PowerShell\7\pwsh.exe')
-    )
+    # 3. Well-known MSI / per-user spots (covers machines without the Store alias).
+    $candidates += Join-Path $env:ProgramFiles 'PowerShell\7\pwsh.exe'
+    $candidates += Join-Path ${env:ProgramFiles(x86)} 'PowerShell\7\pwsh.exe'
+    $candidates += Join-Path $env:LOCALAPPDATA 'Microsoft\PowerShell\7\pwsh.exe'
+
+    $fallback = $null
+    $fallbackVersion = $null
     foreach ($c in $candidates) {
-        if ($c -and (Test-Path -LiteralPath $c)) {
-            return $c
+        if (-not $c -or -not (Test-Path -LiteralPath $c)) { continue }
+        $v = Get-PwshVersion $c
+        if ($null -ne $v -and $v -ge $MinimumVersion) { return $c }
+        if ($null -ne $v -and ($null -eq $fallbackVersion -or $v -gt $fallbackVersion)) {
+            $fallback = $c
+            $fallbackVersion = $v
         }
+    }
+
+    if ($fallback) {
+        [Console]::Error.WriteLine("pwsh7: warning: no PowerShell >= $MinimumVersion found; using $fallback ($fallbackVersion).")
+        return $fallback
     }
 
     return $null
