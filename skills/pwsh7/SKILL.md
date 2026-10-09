@@ -34,7 +34,7 @@ Use this skill to diagnose a PowerShell host version mismatch and continue work 
    powershell.exe -NoProfile -ExecutionPolicy Bypass -File <skill-dir>/scripts/pwsh7.ps1
    ```
 
-   The shim picks the newest runtime at or above 7.6 from PATH, Appx, or MSI installations, forwards all arguments, and returns the child exit code.
+   The shim picks the newest runtime at or above 7.6 from PATH, Appx, or MSI installations, forwards all arguments, and returns the child exit code. Pass untrusted values through `pwsh7.ps1` directly: the `.cmd` wrapper re-parses arguments via `cmd.exe`, which can reinterpret quotes and separators as syntax.
 
    Equivalent legacy inline form (no argument forwarding, no exit-code preservation):
 
