@@ -1,6 +1,6 @@
 ---
-name: pwsh-runtime
-description: Recover from Windows PowerShell 5.1 when a task or tool requires modern PowerShell. Use when T3 Code or another app fails because it is running under powershell.exe, when `$PSVersionTable.PSVersion` reports a version below 7, or when the user asks to switch the current workflow to `pwsh`.
+name: t3pwsh7
+description: Recover T3 Code from running under Windows PowerShell 5.1 by launching the installed modern PowerShell runtime. Use when T3 Code is running under powershell.exe or `$PSVersionTable.PSVersion` reports a version below 7 and the user needs T3 Code to use `pwsh`.
 license: MIT
 compatibility: Windows with the Microsoft.PowerShell Appx package installed; recovery launches a new PowerShell process.
 metadata:
@@ -8,9 +8,9 @@ metadata:
   version: "1.0.0"
 ---
 
-# Recover to modern PowerShell
+# Run T3 Code with modern PowerShell
 
-Use this skill to diagnose a PowerShell host version mismatch and continue work in PowerShell 7 or newer. The Appx-based launch path is Windows-specific.
+Use this skill specifically to recover T3 Code from a Windows PowerShell host version mismatch. The Appx-based launch path is Windows-specific.
 
 ## Workflow
 
