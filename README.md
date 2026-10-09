@@ -14,7 +14,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `pr` | Draft template-aware, evidence-backed pull request bodies with concise visuals and merge-risk context. |
 | `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
-| `t3pwsh7` | Recover T3 Code from Windows PowerShell 5.1 by launching the installed PowerShell 7+ runtime. |
+| `t3pwsh7` | Recover T3 Code from an older Windows PowerShell host by launching the installed PowerShell 7.6+ runtime. |
 | `babysit-pr` | Review one named PR, fix clear feedback, verify CI, and reply with signed updates. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
@@ -115,7 +115,7 @@ See `skills/powershell/SKILL.md` for the workflow and here-string reference.
 
 ### `t3pwsh7`
 
-Checks T3 Code's PowerShell host and, on Windows PowerShell 5.1 or another version below 7, launches the installed Microsoft.PowerShell Appx `pwsh.exe` in a new process. It verifies the new host and explains that work must continue in that session.
+Checks T3 Code's PowerShell host and, on any version below 7.6, launches the installed Microsoft.PowerShell Appx `pwsh.exe` in a new process. It verifies the new host and explains that work must continue in that session.
 
 See `skills/t3pwsh7/SKILL.md` for the recovery workflow.
 
