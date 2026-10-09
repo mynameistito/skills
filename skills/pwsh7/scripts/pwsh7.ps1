@@ -7,18 +7,19 @@
     1. pwsh.exe already on PATH (App Execution Alias or MSI install)
     2. Newest Get-AppxPackage -Name Microsoft.PowerShell -> <InstallLocation>\pwsh.exe
     3. Well-known MSI / per-user locations
-  Forwards all arguments and preserves the child exit code.
+  Forwards all arguments untouched and preserves the child exit code.
+  Declares no parameters: with no param block, every token lands in $args
+  verbatim — including names like -Verbose that the binder would otherwise
+  consume as a common parameter instead of forwarding.
   Works in Windows PowerShell 5.1 and PowerShell 7+.
 .EXAMPLE
   pwsh7.ps1 -NoProfile -Command '$PSVersionTable.PSVersion'
 .EXAMPLE
   pwsh7.ps1 -File .\script.ps1 -Arg 'with spaces'
 #>
-[CmdletBinding()]
-param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [string[]]$PwshArgs
-)
+# No param block by design: with no declared parameters, every token lands in
+# $args verbatim — including names like -Verbose that the binder would
+# otherwise consume as a common parameter instead of forwarding.
 
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
@@ -70,8 +71,7 @@ if (-not $pwsh) {
     exit 1
 }
 
-# Splatting @PwshArgs preserves arguments with spaces verbatim.
-# $PwshArgs is $null when no args were passed; coerce to empty array for 5.1 safety.
-if ($null -eq $PwshArgs) { $PwshArgs = @() }
-& $pwsh @PwshArgs
+# Splatting @args preserves arguments containing spaces ($args is always an
+# array, never $null, so no coercion is needed).
+& $pwsh @args
 exit $LASTEXITCODE
