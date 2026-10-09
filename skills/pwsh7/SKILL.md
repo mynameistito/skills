@@ -22,17 +22,19 @@ Use this skill to diagnose a PowerShell host version mismatch and continue work 
 
    Compare the result with the minimum version `7.6`. Continue in the current session only when `$PSVersionTable.PSVersion -ge [version]'7.6'`; otherwise launch the installed PowerShell package in step 2. A PowerShell 7.0–7.5 host does not meet the 7.6 requirement.
 
-2. **Launch the installed PowerShell package when the active version is below 7.6.** Run the bundled shim (relative to this skill's base directory), which resolves `pwsh.exe` via PATH, then the newest `Get-AppxPackage -Name Microsoft.PowerShell`, then well-known MSI locations — forwarding all arguments and the child exit code:
+2. **Launch the installed PowerShell package when the active version is below 7.6.** Run the bundled shim. First resolve `<skill-dir>` to this skill's installed directory — global per-agent locations are listed in the repository README, and a project install lives under `./<agent-dir>/skills/pwsh7`. Then run:
 
    ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/pwsh7.ps1 -NoProfile -Command '$PSVersionTable.PSVersion'
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File <skill-dir>/scripts/pwsh7.ps1 -NoProfile -Command '$PSVersionTable.PSVersion'
    ```
 
    Or for an interactive session with no arguments:
 
    ```powershell
-   powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/pwsh7.ps1
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File <skill-dir>/scripts/pwsh7.ps1
    ```
+
+   The shim picks the newest runtime at or above 7.6 from PATH, Appx, or MSI installations, forwards all arguments, and returns the child exit code.
 
    Equivalent legacy inline form (no argument forwarding, no exit-code preservation):
 
