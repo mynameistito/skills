@@ -1,7 +1,0 @@
-{
-  "version": "1.0.0",
-  "organization": "mynameistito",
-  "date": "October 2026",
-  "abstract": "Recovers T3 Code from a Windows PowerShell host below version 7.6 by launching the installed Microsoft.PowerShell Appx pwsh.exe via the bundled scripts/pwsh7 shim (argument forwarding, exit-code preservation) and verifying the new process.",
-  "references": []
-}

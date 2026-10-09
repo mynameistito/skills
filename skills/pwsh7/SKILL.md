@@ -1,6 +1,6 @@
 ---
-name: t3pwsh7
-description: Recover T3 Code from running under Windows PowerShell 5.1 or an older PowerShell 7 release by launching the installed modern PowerShell runtime. Use when T3 Code is running under powershell.exe or `$PSVersionTable.PSVersion` is below 7.6 and T3 Code needs PowerShell 7.6+.
+name: pwsh7
+description: Recover from an outdated PowerShell host when a task or tool requires modern PowerShell. Use when an agent or app fails because it is running under powershell.exe, when `$PSVersionTable.PSVersion` reports a version below 7.6, or when the user asks to switch the current workflow to `pwsh`.
 license: MIT
 compatibility: Windows with the Microsoft.PowerShell Appx package installed; recovery launches a new PowerShell process.
 metadata:
@@ -8,9 +8,9 @@ metadata:
   version: "1.0.0"
 ---
 
-# Run T3 Code with modern PowerShell
+# Recover to modern PowerShell
 
-Use this skill specifically to recover T3 Code from a Windows PowerShell host version mismatch. T3 Code requires PowerShell 7.6 or newer. The Appx-based launch path is Windows-specific.
+Use this skill to diagnose a PowerShell host version mismatch and continue work in PowerShell 7.6 or newer. The Appx-based launch path is Windows-specific.
 
 ## Workflow
 
@@ -20,7 +20,7 @@ Use this skill specifically to recover T3 Code from a Windows PowerShell host ve
    $PSVersionTable.PSVersion
    ```
 
-   Compare the result with the minimum version `7.6`. Continue in the current session only when `$PSVersionTable.PSVersion -ge [version]'7.6'`; otherwise launch the installed PowerShell package in step 2. A PowerShell 7.0–7.5 host does not meet this task's requirement.
+   Compare the result with the minimum version `7.6`. Continue in the current session only when `$PSVersionTable.PSVersion -ge [version]'7.6'`; otherwise launch the installed PowerShell package in step 2. A PowerShell 7.0–7.5 host does not meet the 7.6 requirement.
 
 2. **Launch the installed PowerShell package when the active version is below 7.6.** Run the bundled shim (relative to this skill's base directory), which resolves `pwsh.exe` via PATH, then the newest `Get-AppxPackage -Name Microsoft.PowerShell`, then well-known MSI locations — forwarding all arguments and the child exit code:
 
