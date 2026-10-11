@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "October 2026",
+  "abstract": "Recovers an agent session from a Windows PowerShell host below version 7.6 via the bundled scripts/pwsh7 shim, which picks the newest suitable runtime from PATH, Appx, or MSI installations (argument forwarding, exit-code preservation), and verifies the new process.",
+  "references": []
+}
