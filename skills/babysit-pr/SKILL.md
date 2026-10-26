@@ -11,7 +11,11 @@ metadata:
 
 # Babysit one pull request
 
-Use this skill only when the user explicitly invokes `$babysit-pr` and identifies a PR. Work only on that PR and its review feedback from people and coding agents, bot findings, and CI checks. Do not discover other PRs or take on standalone issues.
+Use this skill when the user explicitly invokes `$babysit-pr` for one PR, or asks to babysit a clearly scoped set of PRs. A babysit worker handles exactly one identified PR and its review feedback from people and coding agents, bot findings, and CI checks. It must not discover or act on additional PRs.
+
+For a user-requested batch, treat the batch as orchestration, not as permission for one worker to cross PR boundaries: identify the requested PR set from the user's stated scope (or ask if it is unclear), then run one independent babysit worker per PR. Each worker must receive its PR number or URL and repository explicitly, and must use an isolated workspace when concurrent branch edits could conflict. Do not refuse a batch just because an individual babysit run is limited to one PR. If separate workers are unavailable, explain that limitation once and offer to process the PRs sequentially; do not repeatedly ask the user to pick one when they already requested a batch.
+
+Do not take on standalone issues. A request to babysit every PR must stay within the user's stated repository, ownership, and status filters; do not broaden those filters or take action on unrelated PRs.
 
 ## Workflow
 
@@ -83,6 +87,7 @@ Create each Markdown body as a uniquely named temporary `.md` file in the system
 ## Boundaries
 
 - Operate only on the explicitly named PR and feedback/checks belonging to it.
+- In a batch request, the coordinator may identify the requested PR set and assign one worker per PR; each worker remains restricted to its own explicitly identified PR. The one-PR boundary is per worker, not a reason to reject user-requested batch orchestration.
 - Post comments only as truthful status updates after the outcome is known; append the exact signature to every comment.
 - Never approve, close, retarget, or force-push the PR. Do not merge unless the user explicitly asks to merge the named PR; before merging, require an open and mergeable PR, all applicable required checks passed, and all actionable review threads resolved. If any condition fails or is pending, do not merge; report the blocker and ask the user what to do. Never infer merge permission from “babysit,” “handle,” or similar wording alone.
 - Ask before broad, ambiguous, risky, or intent-changing fixes; never invent a resolution to satisfy a thread.
