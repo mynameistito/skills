@@ -121,7 +121,7 @@ See `skills/pwsh7/SKILL.md` for the recovery workflow.
 
 ### `babysit-pr`
 
-Works on one explicitly named PR and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. It verifies the authenticated GitHub username for each run and uses it in every comment signature. It merges only when explicitly asked and after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.
+Works on one identified PR per worker and repeats review, fix, and CI-check cycles until required checks pass and no actionable review threads remain. For user-requested batches, it supports one independent worker per PR instead of rejecting the batch. It verifies the authenticated GitHub username for each run and uses it in every comment signature. It merges only when explicitly asked and after confirming the PR is open and mergeable, required checks pass, and actionable review threads are resolved.
 
 See `skills/babysit-pr/SKILL.md` for the workflow.
 
