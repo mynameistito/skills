@@ -11,6 +11,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `index-knowledge` | Generate hierarchical `AGENTS.md` knowledge bases for codebases. |
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
+| `browse` | Drive a paired Chromium browser using the Browse MCP server or CLI. |
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `pr` | Draft template-aware, evidence-backed pull request bodies with concise visuals and merge-risk context. |
 | `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
@@ -40,6 +41,7 @@ npx skills add mynameistito/skills/powershell
 npx skills add mynameistito/skills/pwsh7
 npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
+npx skills add mynameistito/skills --skill browse
 ```
 
 Install globally:
@@ -60,6 +62,7 @@ npx skills add mynameistito/skills/powershell -a codex
 npx skills add mynameistito/skills/pwsh7 -a codex
 npx skills add mynameistito/skills/babysit-pr -a codex
 npx skills add mynameistito/skills/testing -a codex
+npx skills add mynameistito/skills --skill browse -a codex
 ```
 
 ### Manual Installation
@@ -94,6 +97,12 @@ See `skills/humanise/SKILL.md` for the workflow and `skills/humanise/references/
 Reads public X statuses, conversations, profiles, search results, followers, and following through the hosted, read-only `x-lookup.mynameistito.com` API. It does not require an X login, cookies, API key, or local repository checkout. Markdown is the default response format; request JSON when structured content, pagination cursors, warnings, or provider details are needed.
 
 See `skills/x-lookup/SKILL.md` for endpoint examples and limits.
+
+### `browse`
+
+Use Browse to work in a paired Chromium profile. The skill covers tab ownership, human handoffs, setup recovery, screenshots, uploads, and diagnostics through the Browse MCP server or CLI.
+
+See [skills/browse/SKILL.md](skills/browse/SKILL.md) and the [Browse project](https://github.com/anomalyco/browse).
 
 ### `github`
 
@@ -142,6 +151,12 @@ skills/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
     │   └── metadata.json
+    ├── browse/
+    │   ├── SKILL.md
+    │   ├── agents/openai.yaml
+    │   ├── metadata.json
+    │   ├── references/setup.md
+    │   └── references/workflows.md
     ├── github/
     │   ├── SKILL.md
     │   ├── LICENSE

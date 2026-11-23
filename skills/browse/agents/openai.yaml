@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browse"
+  short_description: "Drive Chromium with the Browse MCP server or CLI"
+  default_prompt: "Use $browse to inspect and operate the requested page in my browser."
