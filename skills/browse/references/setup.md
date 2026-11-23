@@ -7,7 +7,7 @@
 | Browse tools are missing | Check `browse --version` and whether the current agent has a Browse stdio registration. After adding a registration, reload MCP or restart the client. |
 | CLI works, but MCP is missing | Check that this client launches the same executable with argument `mcp`. Use the absolute path if the client's PATH differs from the terminal's. |
 | Browse connects to the relay but the browser is offline | Read `status` or `browse status --json` and follow `nextStep`. Open the paired profile and check that the extension is enabled. An offline paired browser normally reconnects automatically. |
-| Browser has never paired | Use Browse's setup page or `browse pair` for the intended profile. Manual pairing requires entering the one-time code in the extension. |
+| Browser has never paired | Use Browse's setup page in the intended profile. For manual pairing, have the user run `browse pair` in their own terminal and enter the one-time code directly in the extension. |
 | Multiple browsers are connected | Choose the user's intended browser from `status` and set `browser` when creating the tab. |
 | A tab or ref stopped resolving | Check `tabs` for the tab, then take a fresh snapshot. Idle tabs can close. A browser restart invalidates the old tab IDs. |
 

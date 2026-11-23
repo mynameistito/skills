@@ -41,7 +41,7 @@ npx skills add mynameistito/skills/powershell
 npx skills add mynameistito/skills/pwsh7
 npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
-npx skills add mynameistito/skills/browse
+npx skills add mynameistito/skills --skill browse
 ```
 
 Install globally:
@@ -62,7 +62,7 @@ npx skills add mynameistito/skills/powershell -a codex
 npx skills add mynameistito/skills/pwsh7 -a codex
 npx skills add mynameistito/skills/babysit-pr -a codex
 npx skills add mynameistito/skills/testing -a codex
-npx skills add mynameistito/skills/browse -a codex
+npx skills add mynameistito/skills --skill browse -a codex
 ```
 
 ### Manual Installation
