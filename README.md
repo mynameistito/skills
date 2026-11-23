@@ -18,6 +18,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `powershell` | Write, review, debug, and test PowerShell scripts, including safe here-string and multiline payload handling. |
 | `pwsh7` | Recover any agent session from an outdated Windows PowerShell host by launching the installed PowerShell 7.6+ runtime. |
 | `babysit-pr` | Review one named PR, fix clear feedback, verify CI, and reply with signed updates. |
+| `repo-triage` | Find existing issues, pull requests, and released fixes for a repository problem. |
 | `testing` | Apply testing standards for TypeScript and Effect projects using Bun and Vitest. |
 
 ## Installation
@@ -41,6 +42,7 @@ npx skills add mynameistito/skills/pr
 npx skills add mynameistito/skills/powershell
 npx skills add mynameistito/skills/pwsh7
 npx skills add mynameistito/skills/babysit-pr
+npx skills add mynameistito/skills --skill repo-triage
 npx skills add mynameistito/skills/testing
 npx skills add mynameistito/skills --skill browse
 npx skills add mynameistito/skills --skill blacksmith
@@ -136,6 +138,14 @@ Works on one identified PR per worker and repeats review, fix, and CI-check cycl
 
 See `skills/babysit-pr/SKILL.md` for the workflow.
 
+### `repo-triage`
+
+Searches issues, pull requests, and releases for a reported problem. It checks whether a match is still open, has a fix in progress, or has a fix in a released version.
+
+Invoke `$repo-triage` after installation, or give any agent with access to the file this prompt. Add the repo URL and symptom if you have them. The agent asks for any essentials it still needs.
+
+> Read [the repository triage playbook](skills/repo-triage/SKILL.md) and follow it.
+
 ### `testing`
 
 Guides agents through meaningful TypeScript and Effect testing: choosing unit, integration, or regression coverage; testing typed failures through Effect Layers; selecting honest test doubles; isolating time and state; covering Cloudflare boundaries; and running focused verification.
@@ -192,6 +202,9 @@ skills/
     │   ├── scripts/pwsh7.ps1
     │   ├── scripts/pwsh7.cmd
     │   └── metadata.json
+    ├── repo-triage/
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
     ├── testing/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
