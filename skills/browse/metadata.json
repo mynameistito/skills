@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "organization": "mynameistito",
+  "date": "November 2026",
+  "abstract": "Guides browser automation with anomalyco/browse, including MCP and CLI operation, tab ownership, human handoffs, setup recovery, and scoped browser diagnostics.",
+  "references": [
+    "https://github.com/anomalyco/browse"
+  ]
+}
