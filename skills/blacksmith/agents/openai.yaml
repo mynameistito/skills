@@ -1,0 +1,5 @@
+interface:
+  display_name: "Blacksmith CLI"
+  short_description: "Run the Blacksmith CLI from WSL"
+policy:
+  allow_implicit_invocation: false
