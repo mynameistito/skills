@@ -11,6 +11,7 @@ This repository collects reusable skills under `skills/`. Each skill is a self-c
 | `index-knowledge` | Generate hierarchical `AGENTS.md` knowledge bases for codebases. |
 | `humanise` | Audit drafts for AI-sounding patterns and rewrite them to feel more natural while preserving meaning and tone. |
 | `x-lookup` | Read public X content through the hosted API as Markdown or JSON. |
+| `blacksmith` | Inspect Blacksmith CI and run Testboxes from WSL. Invoke explicitly with `$blacksmith`. |
 | `browse` | Drive a paired Chromium browser using the Browse MCP server or CLI. |
 | `github` | Use GitHub CLI reliably for PRs, issues, Actions, API requests, secrets, and repositories. |
 | `pr` | Draft template-aware, evidence-backed pull request bodies with concise visuals and merge-risk context. |
@@ -42,6 +43,7 @@ npx skills add mynameistito/skills/pwsh7
 npx skills add mynameistito/skills/babysit-pr
 npx skills add mynameistito/skills/testing
 npx skills add mynameistito/skills --skill browse
+npx skills add mynameistito/skills --skill blacksmith
 ```
 
 Install globally:
@@ -151,6 +153,9 @@ skills/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
     │   └── metadata.json
+    ├── blacksmith/
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
     ├── browse/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
