@@ -203,7 +203,8 @@ skills/
     │   ├── scripts/pwsh7.cmd
     │   └── metadata.json
     ├── repo-triage/
-    │   └── SKILL.md
+    │   ├── SKILL.md
+    │   └── agents/openai.yaml
     ├── testing/
     │   ├── SKILL.md
     │   ├── agents/openai.yaml
