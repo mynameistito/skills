@@ -35,10 +35,12 @@ Replace the example repository, job ID, and time window with values from the tas
 | Find failed jobs in a repository | `blacksmith jobs list --repo owner/repo --conclusion failure --since 7d --format table`. Use the returned job ID with `blacksmith jobs logs 12345678` or `blacksmith jobs stats 12345678`. [Jobs](https://docs.blacksmith.sh/blacksmith-cli/jobs.md) |
 | Search across CI logs | `blacksmith logs search --query 'level:error repo:owner/repo "connection refused"' --since 24h`. [Logs](https://docs.blacksmith.sh/blacksmith-cli/logs.md) |
 | Report compute usage and estimated cost | `blacksmith usage --since 30d --breakdown-by runner_type,repo --format table`. Use `usage storage` for storage and `runners catalog` for runner SKUs. [Usage](https://docs.blacksmith.sh/blacksmith-cli/usage.md) |
-| Inspect Actions or Bazel cache entries | `blacksmith cache list --repo owner/repo --format table`. For a requested deletion, match the key and scope against the listing. The `clear` command removes all Actions cache entries for the repository. [Cache](https://docs.blacksmith.sh/blacksmith-cli/cache.md) |
+| Inspect Actions or Bazel cache entries | `blacksmith cache list --repo owner/repo --format table`. [Cache](https://docs.blacksmith.sh/blacksmith-cli/cache.md) |
 | Inspect sticky disks | `blacksmith stickydisk list --repo owner/repo --format table`. For a requested deletion, match the disk key against the listing. [Sticky disks](https://docs.blacksmith.sh/blacksmith-cli/stickydisk.md) |
 
 For CI triage, report the matching job ID, the relevant step or error, and what the logs or metrics show. For usage reports, include the organization, date range, and units. The CLI's estimated cost uses list prices.
+
+For a requested Actions cache deletion, identify the target entries in the listing. `blacksmith cache delete --key <key>` matches every scope, version, and transparent-cache variant of that key by default. Use `--scope` (`null` for unscoped entries), `--version`, and `--transparent-cache` (`true` or `false`) as needed to target the requested entries. `blacksmith cache clear` removes all Actions cache entries for the repository.
 
 ## Run tests in a Testbox
 
