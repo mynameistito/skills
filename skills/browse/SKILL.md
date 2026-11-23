@@ -10,8 +10,8 @@ Browse uses the real browser profile and its existing sign-ins. Follow the curre
 ## Choose the interface
 
 - Use Browse MCP when available. Most clients expose `execute`, `status` and `tabs` under the Browse namespace. Some expose direct tools such as `navigate` and `snapshot`. Read the live schema for the interface the client provides.
-- Use the installed `browse` CLI if the client has no Browse MCP tools and CLI use is permitted. Run `browse tools` and `browse <tool> --help` for browser tool arguments. For multiline JavaScript use `browse execute --file <script.js>` and pass `--tab <id>` to continue a tab.
-- Read [setup and troubleshooting](references/setup.md) if Browse is missing, disconnected, or needs pairing. Use `status` to determine the next step before changing setup.
+- Use the installed `browse` CLI if MCP is unavailable or targets a different relay from the requested browser, where CLI use is permitted. Run `browse tools` and `browse <tool> --help` for browser tool arguments. For multiline JavaScript use `browse execute --file <script.js>` and pass `--tab <id>` to continue a tab.
+- Read [setup and troubleshooting](references/setup.md) if Browse is missing, needs pairing, or reports the browser offline, even when the extension is enabled. Run the recovery steps before handing off a connection problem. Resume the original browser task once `status` lists the requested browser as connected.
 
 ## Scope the tab
 

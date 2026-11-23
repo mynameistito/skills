@@ -6,10 +6,18 @@
 | --- | --- |
 | Browse tools are missing | Check `browse --version` and whether the current agent has a Browse stdio registration. After adding a registration, reload MCP or restart the client. |
 | CLI works, but MCP is missing | Check that this client launches the same executable with argument `mcp`. Use the absolute path if the client's PATH differs from the terminal's. |
-| Browse connects to the relay but the browser is offline | Read `status` or `browse status --json` and follow `nextStep`. Open the paired profile and check that the extension is enabled. An offline paired browser normally reconnects automatically. |
+| Browse connects to the relay but the browser is offline | Follow [Recover a paired browser](#recover-a-paired-browser). |
 | Browser has never paired | Use Browse's setup page in the intended profile. For manual pairing, have the user run `browse pair` in their own terminal and enter the one-time code directly in the extension. |
 | Multiple browsers are connected | Choose the user's intended browser from `status` and set `browser` when creating the tab. |
 | A tab or ref stopped resolving | Check `tabs` for the tab, then take a fresh snapshot. Idle tabs can close. A browser restart invalidates the old tab IDs. |
+
+## Recover a paired browser
+
+1. Read MCP `status` and, if the CLI is available, `browse status --json` and `browse pair --list`. Match the relay endpoint and instance, then identify the requested paired browser. If the CLI is connected and MCP is offline, troubleshoot the client’s relay registration before touching the browser pairing. `paired-offline` means a saved pairing exists and the relay has no active connection from that browser. The extension toggle only shows whether the extension is enabled.
+2. Open the requested browser’s paired profile if it is closed. Use an authorized desktop UI tool to open Browse’s Details in `chrome://extensions` and select **Extension options**. If desktop UI access is unavailable, ask the user for the relay address and connection status shown in Browse Settings. Compare that address with the MCP endpoint.
+3. If the settings show a different local port, check the existing relay on that port before restarting or re-pairing. For example, in PowerShell run `$env:OPENCODE_BROWSER_PORT = '19990'; browse status --json`, substituting the port shown in settings. If this lists the requested browser as connected, pass the same environment variable to each `browse` CLI call and select that browser when opening a tab. Keep the working pairing. A lasting MCP fix is to set `OPENCODE_BROWSER_PORT` in that client’s Browse MCP registration and reload it, if the user asks to change the registration.
+4. If the configured relay matches and the browser is offline, use **Advanced** → **Reconnect** in Browse Settings where available. Use the desktop UI or ask the user to click it. If the browser remains offline and a restart is authorized, use `browse status --json` to confirm that the intended local relay has no connected browsers or active targets. Then run `browse restart` once using the same executable and environment as that status check. A `reconnecting` reply immediately after restart is provisional. Confirm `connected: true` and the requested browser in the browser list, then open a task tab and verify a page read.
+5. If the browser is still offline, use the extension’s connection status or a redacted connection error to distinguish conflicts, version mismatches, and unpaired profiles. Keep tokens, pairing codes, and raw diagnostics out of logs and chat.
 
 ## Install when requested
 
